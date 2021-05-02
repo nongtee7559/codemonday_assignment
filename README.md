@@ -1,4 +1,4 @@
-## Covid19 Dashboard
+## Covid19 Report
 
 This project implement for CODEMONDAY's assignment using React.js and Material UI.
 
