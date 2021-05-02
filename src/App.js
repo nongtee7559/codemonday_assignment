@@ -11,6 +11,7 @@ import { ReactComponent as VirusSvg } from "./asset/coronavirus.svg";
 import { ReactComponent as DeathSvg } from "./asset/grave.svg";
 import { ReactComponent as RecoverSvg } from "./asset/patient.svg";
 import TableHeader from './components/TableHeader';
+import CardHeader from './components/CardHeader';
 const theme = createMuiTheme({
   typography: {
     fontFamily: '"Segoe UI"',
@@ -172,57 +173,15 @@ const App = () => {
                   <i>REPORT OF</i> {new Date(global?.Date).toLocaleDateString()}
                 </Typography>
               </Grid>
-              <Grid item xs={12} sm={4}>
-                <Paper className={classes.paper} display="flex">
-                  <Grid container>
-                    <Grid item md={4} xs={12} className={classes.alignSelfCenter}>
-                      <VirusSvg className={classes.svgIcon} />
-                    </Grid>
-                    <Grid item md={8} xs={12}>
-                      <Typography variant="h3">
-                        {getNumber(global?.TotalConfirmed).toString()}
-                      </Typography>
-                      <Typography variant="h5" className={classes.ligthGray}>
-                        Confirmed
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Paper className={classes.paper}>
-                  <Grid container>
-                    <Grid item md={4} xs={12} className={classes.alignSelfCenter}>
-                      <RecoverSvg className={classes.svgIcon} />
-                    </Grid>
-                    <Grid item md={8} xs={12}>
-                      <Typography variant="h3">
-                        {getNumber(global?.TotalRecovered).toString()}
-                      </Typography>
-                      <Typography variant="h5" className={classes.ligthGray}>
-                        Recovered
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Grid>
-              <Grid item xs={12} sm={4}>
-                <Paper className={classes.paper}>
-                  <Grid container>
-                    <Grid item md={4} xs={12} className={classes.alignSelfCenter}                    >
-                      <DeathSvg className={classes.svgIcon} />
-                    </Grid>
-                    <Grid item md={8} xs={12}>
-                      <Typography variant="h3">
-                        {getNumber(global?.TotalDeaths).toString()}
-                      </Typography>
-                      <Typography variant="h5" className={classes.ligthGray}>
-                        Deaths
-                      </Typography>
-                    </Grid>
-                  </Grid>
-                </Paper>
-              </Grid>
+              <CardHeader classes={classes} value={global?.TotalConfirmed} label='Confirmed'>
+                <VirusSvg className={classes.svgIcon} />
+              </CardHeader>
+              <CardHeader classes={classes} value={global?.TotalDeaths} label='Deaths'>
+                <DeathSvg className={classes.svgIcon} />
+              </CardHeader>
+              <CardHeader classes={classes} value={global?.TotalRecovered} label='Recovered'>
+                <RecoverSvg className={classes.svgIcon} />
+              </CardHeader>
               <Grid item xs={12}>
                 <Paper className={classes.paper}>
                   <TextField InputProps={{ className: classes.search }}
