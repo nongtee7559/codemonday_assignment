@@ -132,7 +132,7 @@ const App = () => {
   const [global, setGlobal] = useState({});
   const [countries, setCountries] = useState([]);
   const [searchCountries, setSearchCountries] = useState([]);
-  const [orderBy, setOrderBy] = useState('asc');
+  const [orderBy, setOrderBy] = useState('desc');
   const [valueToOrderBy, setValueToOrderBy] = useState('TotalConfirmed');
   const headCells = [
     { id: 'No', sortable: false, label: 'No.' },
@@ -231,7 +231,7 @@ const App = () => {
                     label="Search Country"
                     onChange={searchChangeHandler} />
                   <TableContainer className={classes.table}>
-                    <Table stickyHeader>
+                    <Table>
                       <TableHeader
                         valueToOrderBy={valueToOrderBy}
                         orderBy={orderBy}

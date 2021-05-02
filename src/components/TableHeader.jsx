@@ -10,11 +10,10 @@ const TableHeader = (props) => {
         <TableHead>
             <TableRow>
                 {
-                    headCells.map((el) => {
-                        if (!el.sortable)
-                            <TableCell key={el.id}>{el.label}</TableCell>
-                        else if (el.sortable)
-                            <TableCell key={el.id}>
+                    headCells.map((el) =>
+                        !el.sortable
+                            ? (<TableCell key={el.id}>{el.label}</TableCell>)
+                            : (<TableCell key={el.id}>
                                 <TableSortLabel
                                     active={valueToOrderBy === el.id}
                                     direction={valueToOrderBy === el.id ? orderBy : 'asc'}
@@ -22,8 +21,8 @@ const TableHeader = (props) => {
                                 >
                                     {el.label}
                                 </TableSortLabel>
-                            </TableCell>
-                    })
+                            </TableCell>)
+                    )
                 }
             </TableRow>
         </TableHead>
