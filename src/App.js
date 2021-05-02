@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import './App.css';
-import { Table, TableBody, TableCell, TableHead, TableRow, TableSortLabel, TextField } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableRow, TextField } from '@material-ui/core';
+// SVG
+import { ReactComponent as VirusSvg } from "./asset/coronavirus.svg";
+import { ReactComponent as DeathSvg } from "./asset/grave.svg";
+import { ReactComponent as RecoverSvg } from "./asset/patient.svg";
+import TableHeader from './components/TableHeader';
 const theme = createMuiTheme({
   typography: {
     fontFamily: '"Segoe UI"',
@@ -64,7 +66,18 @@ const useStyles = makeStyles(theme => ({
   },
   search: {
     color: 'white'
-  }
+  },
+  ligthGray: {
+    color: "#949EAF",
+  },
+  alignSelfCenter: {
+    alignSelf: "center",
+  },
+  svgIcon: {
+    height: "56px",
+    width: "36px",
+    transform: "scale(2)",
+  },
 }));
 
 const getData = () => {
@@ -121,6 +134,13 @@ const App = () => {
   const [searchCountries, setSearchCountries] = useState([]);
   const [orderBy, setOrderBy] = useState('asc');
   const [valueToOrderBy, setValueToOrderBy] = useState('TotalConfirmed');
+  const headCells = [
+    { id: 'No', sortable: false, label: 'No.' },
+    { id: 'Country', sortable: false, label: 'Country' },
+    { id: 'TotalConfirmed', sortable: true, label: 'Total Confirmed Cases' },
+    { id: 'TotalDeaths', sortable: true, label: 'Total Deaths Cases' },
+    { id: 'TotalRecovered', sortable: true, label: 'Total Recovered Cases' },
+  ];
 
   useEffect(() => {
     getData().then(response => {
@@ -148,26 +168,59 @@ const App = () => {
           <Container className={classes.container}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <Typography align="right" >
-                  Last updated: {new Date(global?.Date).toLocaleDateString()}
+                <Typography variant="h6" align="left">
+                  <i>REPORT OF</i> {new Date(global?.Date).toLocaleDateString()}
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={4}>
-                <Paper className={classes.paper}>
-                  <Typography variant="h5">Confirmed</Typography>
-                  <Typography variant="h3">{getNumber(global?.TotalConfirmed)}</Typography>
+                <Paper className={classes.paper} display="flex">
+                  <Grid container>
+                    <Grid item md={4} xs={12} className={classes.alignSelfCenter}>
+                      <VirusSvg className={classes.svgIcon} />
+                    </Grid>
+                    <Grid item md={8} xs={12}>
+                      <Typography variant="h3">
+                        {getNumber(global?.TotalConfirmed).toString()}
+                      </Typography>
+                      <Typography variant="h5" className={classes.ligthGray}>
+                        Confirmed
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={4}>
                 <Paper className={classes.paper}>
-                  <Typography variant="h5">Recovered</Typography>
-                  <Typography variant="h3">{getNumber(global?.TotalRecovered)}</Typography>
+                  <Grid container>
+                    <Grid item md={4} xs={12} className={classes.alignSelfCenter}>
+                      <RecoverSvg className={classes.svgIcon} />
+                    </Grid>
+                    <Grid item md={8} xs={12}>
+                      <Typography variant="h3">
+                        {getNumber(global?.TotalRecovered).toString()}
+                      </Typography>
+                      <Typography variant="h5" className={classes.ligthGray}>
+                        Recovered
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={4}>
                 <Paper className={classes.paper}>
-                  <Typography variant="h5">Deaths</Typography>
-                  <Typography variant="h3">{getNumber(global?.TotalDeaths)}</Typography>
+                  <Grid container>
+                    <Grid item md={4} xs={12} className={classes.alignSelfCenter}                    >
+                      <DeathSvg className={classes.svgIcon} />
+                    </Grid>
+                    <Grid item md={8} xs={12}>
+                      <Typography variant="h3">
+                        {getNumber(global?.TotalDeaths).toString()}
+                      </Typography>
+                      <Typography variant="h5" className={classes.ligthGray}>
+                        Deaths
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </Paper>
               </Grid>
               <Grid item xs={12}>
@@ -177,53 +230,27 @@ const App = () => {
                     fullWidth
                     label="Search Country"
                     onChange={searchChangeHandler} />
-                  <Table className={classes.table}>
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>No.</TableCell>
-                        <TableCell>Country</TableCell>
-                        <TableCell key='TotalConfirmed'>
-                          <TableSortLabel
-                            active={valueToOrderBy === 'TotalConfirmed'}
-                            direction={valueToOrderBy === 'TotalConfirmed' ? orderBy : 'asc'}
-                            onClick={() => handleRequestSort('TotalConfirmed')}
-                          >
-                            Total Confirmed Cases
-                          </TableSortLabel>
-                        </TableCell>
-                        <TableCell key='TotalDeaths'>
-                          <TableSortLabel
-                            active={valueToOrderBy === 'TotalDeaths'}
-                            direction={valueToOrderBy === 'TotalDeaths' ? orderBy : 'asc'}
-                            onClick={() => handleRequestSort('TotalDeaths')}
-                          >
-                            Total Deaths Cases
-                          </TableSortLabel>
-                        </TableCell>
-                        <TableCell key='TotalRecovered'>
-                          <TableSortLabel
-                            active={valueToOrderBy === 'TotalRecovered'}
-                            direction={valueToOrderBy === 'TotalRecovered' ? orderBy : 'asc'}
-                            onClick={() => handleRequestSort('TotalRecovered')}
-                          >
-                            Total Recoverd cases
-                          </TableSortLabel>
-                        </TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {stableSort(searchCountries, getComparator(orderBy, valueToOrderBy))
-                        .map((data, index) => (
-                          <TableRow key={`row${index}`}>
-                            <TableCell>{index + 1}</TableCell>
-                            <TableCell>{data?.Country}</TableCell>
-                            <TableCell>{data?.TotalConfirmed == 0 ? 'unreported' : data?.TotalConfirmed}</TableCell>
-                            <TableCell>{data?.TotalDeaths == 0 ? 'unreported' : data?.TotalDeaths}</TableCell>
-                            <TableCell>{data?.TotalRecovered == 0 ? 'unreported' : data?.TotalRecovered}</TableCell>
-                          </TableRow>
-                        ))}
-                    </TableBody>
-                  </Table>
+                  <TableContainer className={classes.table}>
+                    <Table stickyHeader>
+                      <TableHeader
+                        valueToOrderBy={valueToOrderBy}
+                        orderBy={orderBy}
+                        headCells={headCells}
+                        handleRequestSort={handleRequestSort} />
+                      <TableBody>
+                        {stableSort(searchCountries, getComparator(orderBy, valueToOrderBy))
+                          .map((data, index) => (
+                            <TableRow key={`row${index}`}>
+                              <TableCell>{index + 1}</TableCell>
+                              <TableCell>{data?.Country}</TableCell>
+                              <TableCell>{data?.TotalConfirmed == 0 ? 'unreported' : data?.TotalConfirmed}</TableCell>
+                              <TableCell>{data?.TotalDeaths == 0 ? 'unreported' : data?.TotalDeaths}</TableCell>
+                              <TableCell>{data?.TotalRecovered == 0 ? 'unreported' : data?.TotalRecovered}</TableCell>
+                            </TableRow>
+                          ))}
+                      </TableBody>
+                    </Table>
+                  </TableContainer>
                 </Paper>
               </Grid>
             </Grid>
