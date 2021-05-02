@@ -201,7 +201,18 @@ const App = () => {
                           .map((data, index) => (
                             <TableRow key={`row${index}`}>
                               <TableCell>{index + 1}</TableCell>
-                              <TableCell>{data?.Country}</TableCell>
+                              <TableCell>
+                                <img
+                                  alt={data?.Country}
+                                  src={
+                                    "http://purecatamphetamine.github.io/country-flag-icons/1x1/" +
+                                    data?.CountryCode +
+                                    ".svg"
+                                  }
+                                  height="10px"
+                                  width='18px' />
+                                {` ${data?.Country}`}
+                              </TableCell>
                               <TableCell>{data?.TotalConfirmed == 0 ? 'unreported' : data?.TotalConfirmed}</TableCell>
                               <TableCell>{data?.TotalDeaths == 0 ? 'unreported' : data?.TotalDeaths}</TableCell>
                               <TableCell>{data?.TotalRecovered == 0 ? 'unreported' : data?.TotalRecovered}</TableCell>
