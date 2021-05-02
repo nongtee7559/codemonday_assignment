@@ -173,13 +173,13 @@ const App = () => {
                   <i>REPORT OF</i> {new Date(global?.Date).toLocaleDateString()}
                 </Typography>
               </Grid>
-              <CardHeader classes={classes} value={global?.TotalConfirmed} label='Confirmed'>
+              <CardHeader classes={classes} value={global?.TotalConfirmed} label='Total Confirmed'>
                 <VirusSvg className={classes.svgIcon} />
               </CardHeader>
-              <CardHeader classes={classes} value={global?.TotalDeaths} label='Deaths'>
+              <CardHeader classes={classes} value={global?.TotalDeaths} label='Total Deaths'>
                 <DeathSvg className={classes.svgIcon} />
               </CardHeader>
-              <CardHeader classes={classes} value={global?.TotalRecovered} label='Recovered'>
+              <CardHeader classes={classes} value={global?.TotalRecovered} label='Total Recovered'>
                 <RecoverSvg className={classes.svgIcon} />
               </CardHeader>
               <Grid item xs={12}>
