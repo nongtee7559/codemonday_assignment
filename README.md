@@ -1,6 +1,7 @@
 ## Covid19 Report
 
 This project implement for CODEMONDAY's assignment using React.js and Material UI.
+You can enter this website as https://covid19-report-assignment.herokuapp.com/ by using Heroku to host a website.
 
 ## Getting Started
 
