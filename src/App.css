@@ -5,6 +5,7 @@
   background:linear-gradient(#141e30c9, #243b55c9), url('./asset/fusion-medical-animation-rnr8D3FNUNY-unsplash.jpg');
   background-repeat: no-repeat;
   background-size: auto;
+  min-height: 100vh;
   color: white;
   padding: 20px;
 }
